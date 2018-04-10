@@ -1,5 +1,6 @@
 import random
 import java.awt.Font as Font
+import os
 #import java.awt.FontMetrics
 #http://www.java2s.com/Tutorial/Java/0261__2D-Graphics/Centertext.htm
 #Drawing centered text, should figure this out someday
@@ -7,7 +8,7 @@ class Coords:
   def __init__(self,i):
     self.x = i%cols
     self.y = i//cols
-#blah blah blah, testing
+
 def scalePercent(pic,percent):
   percent = percent*0.01
   w1 = getWidth(pic)
@@ -35,7 +36,7 @@ boardImage = makeEmptyPicture(800,600)
 board =  [[0,0,1,1],
           [2,2,3,3],
           [4,4,5,5]]
-imageFolder = r"F:\Users\Fireplace\Desktop\Not Hacks\csumb\Week014\MemoryGameImages"
+imageFolder = os.path.dirname(os.path.abspath(__file__))+r"\MemoryGameImages"
 images = []
 maxint = 5
 validIndexes = []
@@ -83,10 +84,10 @@ while true:
       showInformation("You win!")
       break
   else:
-    hideCardAtCoord(c1)
-    hideCardAtCoord(c2)
     wrongTurns += 1
     showInformation("No match! %d/6 wrong moves"%wrongTurns)
+    hideCardAtCoord(c1)
+    hideCardAtCoord(c2)
     if wrongTurns >= 6:
       showInformation("You lose!")
       break
