@@ -7,7 +7,7 @@ class Coords:
   def __init__(self,i):
     self.x = i%cols
     self.y = i//cols
-
+#blah blah blah, testing
 def scalePercent(pic,percent):
   percent = percent*0.01
   w1 = getWidth(pic)
