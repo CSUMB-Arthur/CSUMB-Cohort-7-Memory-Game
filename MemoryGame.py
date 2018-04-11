@@ -37,23 +37,23 @@ board =  [[0,0,1,1],
           [2,2,3,3],
           [4,4,5,5]]
 imageFolder = os.path.dirname(os.path.abspath(__file__))+r"\MemoryGameImages"
+imagePaths = os.listdir(imageFolder)#Returns a list of all the file paths of the folder. As a unicode string.
 images = []
-maxint = 5
+maxInt = len(imagePaths)-1
 validIndexes = []
 print("Resizing images in folder.")
-for i in range(0,6):
-  validIndexes.append(i)
-for i in range(0,6):
-  ri = random.randint(0,maxint)
-  resized = makePicture(imageFolder+"\\%02d.png"%validIndexes[ri])
-  validIndexes[ri] = validIndexes[maxint]
+
+for i in range(0,6): #Resize 6 base images from the folder, and append the resized version to images[]
+  ri = random.randint(0,maxInt)
+  resized = makePicture(imageFolder+"\\"+imagePaths[ri])
+  imagePaths[ri] = imagePaths[maxInt]
   ratio = cardWidth/float(getWidth(resized)) #Percent required to match width
   if ratio > cardHeight/float(getHeight(resized)):
     ratio = cardHeight/float(getHeight(resized)) #Percent required to match height
   #Rescale by the smaller ratio, to ensure the new image fits into the card area, even if it isn't square
   resized = scalePercent(resized,ratio*100)
   images.append(resized)
-  maxint -= 1
+  maxInt -= 1
 randomizeBoard()
 hideAllCards()
 show(boardImage)
