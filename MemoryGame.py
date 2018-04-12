@@ -31,6 +31,20 @@ def hideCardAtCoord(c, image, back):
 #     setColor(pixel, color)
       setColor(pixel, cardBackColor)   
       return image
+  #Draws/shows card at the given location
+  
+#Adds/draws image at the given location
+def showImageAtLocation(x,y):
+  image = images[gameBoardList[x][y]] # gets one image from the cards/images list
+  width = getWidth(image) #gets width of a single card
+  height = getHeight(image)#gets height of a single care
+  for m in range(width):
+    for n in range (height):
+      pixel = getPixel(image, m,n)
+      color = getColor(pixel) 
+      newPixel = getPixel(gameBoard, (width*y)+(margins*(y+1))+m , (height*x)+(margins*(x+1))+n ) 
+      setColor(newPixel, color)
+
   
 def scalePercent(pic,percent):
   percent = percent*0.01
