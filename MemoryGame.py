@@ -9,6 +9,27 @@ class Coords:
     self.x = i%cols
     self.y = i//cols
 
+#Takes the list of coordinates [x, y] as an input
+def clearCardAtCoord(c, image):
+  startX = (c[0] + 1)*margins  + (c[0] * cardWidth)
+  startY = (c[1] + 1)*margins  + (c[1] * cardHeight)
+  for i in range(cardWidth):
+    for j in range(cardHeight):
+      pixel = getPixel(image, cardWidth + i, cardHeight + j)
+      setColor(pixel, backgroundColor)
+
+def hideCardAtCoord(c, image, back):
+  startX = (c[0] + 1)*margins  + (c[0] * cardWidth)
+  startY = (c[1] + 1)*margins  + (c[1] * cardHeight)
+  for i in range(cardWidth):
+    for j in range(cardHeight):  
+      pixel = getPixel(image, startX + i, startY + j)
+#*****This code will be implemented once I create an image for back of card
+#     backPixel = getPixel(cardBack, i, j)
+#     color = getcolor
+#     setColor(pixel, color)
+      setColor(pixel, cardBackColor)   
+  
 def scalePercent(pic,percent):
   percent = percent*0.01
   w1 = getWidth(pic)
@@ -31,6 +52,8 @@ margins = 5
 cardWidth = (boardWidth-margins*(cols+1))/cols
 cardHeight = (boardHeight-margins*(rows+1))/rows
 cardBackColor = makeColor(127,127,127)
+#cardBack = makePicture("C:\******\cardReverse.jpg") once a make a card back image
+#cardBack = scalePercent
 backgroundColor = makeColor(31,31,31)
 boardImage = makeEmptyPicture(800,600)
 board =  [[0,0,1,1],
@@ -77,8 +100,8 @@ while true:
     board[c1.y][c1.x] = -1
     board[c2.y][c2.x] = -1
     showInformation("Match!")
-    clearCardAtCoord(c1)
-    clearCardAtCoord(c2)
+    clearCardAtCoord(c1, boardImage) #I added a boardImage Parameter. Not sure how this would be done without. Maybe I am missing something? - WB
+    clearCardAtCoord(c2, boardImage)
     matchesMade +=1
     if matchesMade >=6:
       showInformation("You win!")
@@ -86,8 +109,8 @@ while true:
   else:
     wrongTurns += 1
     showInformation("No match! %d/6 wrong moves"%wrongTurns)
-    hideCardAtCoord(c1)
-    hideCardAtCoord(c2)
+    hideCardAtCoord(c1, boardImage)
+    hideCardAtCoord(c2, boardImage)
     if wrongTurns >= 6:
       showInformation("You lose!")
       break
