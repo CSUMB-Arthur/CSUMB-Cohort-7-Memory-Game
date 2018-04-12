@@ -17,6 +17,7 @@ def clearCardAtCoord(c, image):
     for j in range(cardHeight):
       pixel = getPixel(image, cardWidth + i, cardHeight + j)
       setColor(pixel, backgroundColor)
+      return image
 
 def hideCardAtCoord(c, image, back):
   startX = (c[0] + 1)*margins  + (c[0] * cardWidth)
@@ -29,6 +30,7 @@ def hideCardAtCoord(c, image, back):
 #     color = getcolor
 #     setColor(pixel, color)
       setColor(pixel, cardBackColor)   
+      return image
   
 def scalePercent(pic,percent):
   percent = percent*0.01
@@ -100,8 +102,8 @@ while true:
     board[c1.y][c1.x] = -1
     board[c2.y][c2.x] = -1
     showInformation("Match!")
-    clearCardAtCoord(c1, boardImage) #I added a boardImage Parameter. Not sure how this would be done without. Maybe I am missing something? - WB
-    clearCardAtCoord(c2, boardImage)
+    boardImage = clearCardAtCoord(c1, boardImage) #I added a boardImage Parameter. Not sure how this would be done without. Maybe I am missing something? - WB
+    boardImage = clearCardAtCoord(c2, boardImage)
     matchesMade +=1
     if matchesMade >=6:
       showInformation("You win!")
@@ -109,8 +111,8 @@ while true:
   else:
     wrongTurns += 1
     showInformation("No match! %d/6 wrong moves"%wrongTurns)
-    hideCardAtCoord(c1, boardImage)
-    hideCardAtCoord(c2, boardImage)
+    boardImage = hideCardAtCoord(c1, boardImage)
+    boardImage = hideCardAtCoord(c2, boardImage)
     if wrongTurns >= 6:
       showInformation("You lose!")
       break
