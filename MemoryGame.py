@@ -117,7 +117,7 @@ for i in range(len(backImagesPath)):
   #Rescale by the smaller ratio, to ensure the new image fits into the card area, even if it isn't square
   backImages.append(scalePercent(backImage,ratio*100))
  
-clearImage = makePicture(path+"\\clearImage.png")
+clearImage = makePicture(ImageFolder+"\\clearImage.png")
 ratio = cardWidth/float(getWidth(clearImage)) #Percent required to match width
 if ratio > cardHeight/float(getHeight(clearImage)):
   ratio = cardHeight/float(getHeight(clearImage)) #Percent required to match height
