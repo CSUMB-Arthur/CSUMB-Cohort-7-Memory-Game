@@ -1,4 +1,4 @@
-import random
+from random import *
 import java.awt.Font as Font
 import os
 #import java.awt.FontMetrics
@@ -9,6 +9,21 @@ class Coords:
     self.x = i%cols
     self.y = i//cols
     self.up = 0 # Initially card facedown 0 for facedown, 1 for face up, -1 for clear
+
+def welcome():
+  showInformation("Welcome to Team 2's Memory Game" )
+  print("As the player, you flip two cards by entering the numbers on the cards")
+  print("If the cards match, they are removed and the player scores one point.")
+  print("If they do not match, they are flipped over and the player gets one missed attempt. ")
+  print("The game is over when you fail to match cards 6 times. If all the cards are matched, you win the game. Good luck!")
+  
+def randomizeGameBoard(gameBoardList):
+  for x in range(3):
+    for y in range(4):
+      randX = randint(0,2)
+      randY = randint(0,3)
+      gameBoardList[x][y], gameBoardList[randX][randY]  = gameBoardList[randX][randY], gameBoardList[x][y]
+  return gameBoardList
   
 #Adds/draws image at the given location
 def showCardAtCoord(cd, boardImage):
@@ -72,6 +87,7 @@ def intToCoord(i):
 def getInput():
   x = int(requestString("Enter the number of image you want to turn up. 0-11"))
   return x
+  
 boardWidth = 800
 boardHeight = 600
 cols = 4
@@ -86,6 +102,8 @@ backboard =[[0,1,2,3],
 board =  [[0,0,1,1],
           [2,2,3,3],
           [4,4,5,5]]
+          
+board = randomizeGameBoard(board)
 imageFolder = os.path.dirname(os.path.abspath(__file__))+r"\MemoryGameImages"
 imagePaths = os.listdir(imageFolder)#Returns a list of all the file paths of the folder. As a unicode string.
 images = []
@@ -109,15 +127,16 @@ for i in range(0,6): #Resize 6 base images from the folder, and append the resiz
 backImageFolder = os.path.dirname(os.path.abspath(__file__))+r"\MemoryGameBackImages"
 backImagesPath= os.listdir(backImageFolder)
 backImages= []
-for i in range(len(backImagesPath)):
+for i in range(len(backImagesPath) - 1):
   backImage = makePicture(backImageFolder+"\\"+backImagesPath[i])
+  #show(backImage)
   ratio = cardWidth/float(getWidth(backImage)) #Percent required to match width
   if ratio > cardHeight/float(getHeight(backImage)):
     ratio = cardHeight/float(getHeight(backImage)) #Percent required to match height
   #Rescale by the smaller ratio, to ensure the new image fits into the card area, even if it isn't square
   backImages.append(scalePercent(backImage,ratio*100))
  
-clearImage = makePicture(ImageFolder+"\\clearImage.png")
+clearImage = makePicture(imageFolder+"\\clearImage.png")
 ratio = cardWidth/float(getWidth(clearImage)) #Percent required to match width
 if ratio > cardHeight/float(getHeight(clearImage)):
   ratio = cardHeight/float(getHeight(clearImage)) #Percent required to match height
@@ -127,6 +146,7 @@ clearImage = scalePercent(clearImage,ratio*100)
 boardImage = initializeBoardImage(boardImage)
 wrongTurns = 0
 matchesMade = 0
+welcome()
 while true:
   #guessOne = -1 #Reset guessOne, this variable is used in the getInput function, so you can't pick the same card twice.
   i1 = getInput()
