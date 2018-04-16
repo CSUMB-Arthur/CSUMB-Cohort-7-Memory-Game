@@ -64,6 +64,27 @@ def scalePercent(pic,percent):
       sampled = getPixel(pic,int(x/percent),int(y/percent))
       setColor(drawn,getColor(sampled))
   return newpic
+#Initilly shows the board with all flipped back cards
+def initializeBoardImage():
+  backImage =  makePicture(path+"\\back.jpg") # gets one image from the cards/images list
+  ratio = cardWidth/float(getWidth(backImage)) #Percent required to match width
+  if ratio > cardHeight/float(getHeight(backImage)):
+    ratio = cardHeight/float(getHeight(backImage)) #Percent required to match height
+  #Rescale by the smaller ratio, to ensure the new image fits into the card area, even if it isn't square
+  backImage = scalePercent(backImage,ratio*100)
+  width = getWidth(backImage) #gets width of a single card
+  height = getHeight(backImage)#gets height of a single card
+  for i in range(12):
+    cd = intToCoord(i)
+    x = cd.x
+    y = cd.y
+    for m in range(width):
+      for n in range (height):
+        pixel = getPixel(backImage, m,n)
+        color = getColor(pixel) 
+        newPixel = getPixel(boardImage, (width*x)+(margins*(x+1))+m , (height*y)+(margins*(y+1))+n ) 
+        setColor(newPixel, color)
+  show(boardImage)
 
 boardWidth = 800
 boardHeight = 600
