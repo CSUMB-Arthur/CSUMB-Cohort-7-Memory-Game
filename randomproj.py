@@ -5,7 +5,6 @@ gameBoardList =[[0,0,1,1], #init board values, assuming 4x3
 def welcome():
   showInformation("Welcome to Team 2's Memory Game" )
   print("As the player, you flip two cards by entering the numbers on the cards")
-  print("You take look around and see you are in...")
   print("If the cards match, they are removed and the player scores one point.")
   print("If they do not match, they are flipped over and the player gets one missed attempt. ")
   print("The game is over when you fail to match cards 6 times. If all the cards are matched, you win the game. Good luck!")
