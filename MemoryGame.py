@@ -129,23 +129,23 @@ while true:
   if board[c1.y][c1.x] == board[c2.y][c2.x]:
     board[c1.y][c1.x] = -1
     board[c2.y][c2.x] = -1
-    showInformation("Match!")
     playSound(3) #plays the sound for key 3 in soundDict
+    showInformation("Match!")
     boardImage = clearCardAtCoord(c1, boardImage) #I added a boardImage Parameter. Not sure how this would be done without. Maybe I am missing something? - WB
     boardImage = clearCardAtCoord(c2, boardImage)
     matchesMade +=1
     if matchesMade >=6:
-      showInformation("You win!")
       playSound(1) #plays the sound for key 1 in soundDict
+      showInformation("You win!")
       break
   else:
     wrongTurns += 1
-    showInformation("No match! %d/6 wrong moves"%wrongTurns)
     playSound(4) #plays sound for key 4 in soundDict
+    showInformation("No match! %d/6 wrong moves"%wrongTurns)
     boardImage = hideCardAtCoord(c1, boardImage)
     boardImage = hideCardAtCoord(c2, boardImage)
     if wrongTurns >= 6:
-      showInformation("You lose!")
       playSound(2) #plays sound for key 2
+      showInformation("You lose!")
       break
   repaint(boardImage)
