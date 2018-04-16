@@ -34,7 +34,21 @@ def hideCardAtCoord(c, image, back):
   #Draws/shows card at the given location
   
 #Adds/draws image at the given location
-def showImageAtLocation(x,y):
+def showCardAtCoord(cd, boardImage):
+  x = cd.x
+  y = cd.y
+  image = images[board[y][x]] # gets one image from the cards/images list
+  width = getWidth(image) #gets width of a single card
+  height = getHeight(image)#gets height of a single care
+  for m in range(width):
+    for n in range (height):
+      pixel = getPixel(image, m,n)
+      color = getColor(pixel) 
+      newPixel = getPixel(boardImage, (width*x)+(margins*(x+1))+m , (height*y)+(margins*(y+1))+n ) 
+      setColor(newPixel, color)
+  show(boardImage)
+  return boardImage
+def showImageAtLocation(c, image,  ):
   image = images[gameBoardList[x][y]] # gets one image from the cards/images list
   width = getWidth(image) #gets width of a single card
   height = getHeight(image)#gets height of a single care
@@ -60,6 +74,16 @@ def scalePercent(pic,percent):
       setColor(drawn,getColor(sampled))
   return newpic
 
+#Plays a sound according to the event happening i.e. winning, losing, match or wrong
+def playSound(num): #num corresponds to the sound we want to play. It is the key which corresponds to a sound in the dictionary SoundDict
+  soundFolder = os.path.dirname(os.path.abspath(__file__))+r"\MemoryGameSounds"
+  win = makeSound(soundFolder+"\\win.wav")
+  lose = makeSound(soundFolder + "\\lose.wav")
+  match = makeSound(soundFolder+ "\\match.wav")
+  wrong = makeSound (soundFolder + "\\boing.wav")
+  soundDict = {1:win, 2:lose, 3:match, 4:wrong}
+  play(soundDict[num])
+  
 boardWidth = 800
 boardHeight = 600
 cols = 4
@@ -116,18 +140,22 @@ while true:
     board[c1.y][c1.x] = -1
     board[c2.y][c2.x] = -1
     showInformation("Match!")
+    playSound(3) #plays the sound for key 3 in soundDict
     boardImage = clearCardAtCoord(c1, boardImage) #I added a boardImage Parameter. Not sure how this would be done without. Maybe I am missing something? - WB
     boardImage = clearCardAtCoord(c2, boardImage)
     matchesMade +=1
     if matchesMade >=6:
       showInformation("You win!")
+      playSound(1) #plays the sound for key 1 in soundDict
       break
   else:
     wrongTurns += 1
     showInformation("No match! %d/6 wrong moves"%wrongTurns)
+    playSound(4) #plays sound for key 4 in soundDict
     boardImage = hideCardAtCoord(c1, boardImage)
     boardImage = hideCardAtCoord(c2, boardImage)
     if wrongTurns >= 6:
       showInformation("You lose!")
+      playSound(2) #plays sound for key 2
       break
   repaint(boardImage)
