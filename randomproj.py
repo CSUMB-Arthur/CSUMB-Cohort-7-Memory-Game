@@ -16,4 +16,4 @@ def randomizeGameBoard():
       randX = randint(0,2)
       randY = randint(0,3)
       gameBoardList[x][y], gameBoardList[randX][randY]  = gameBoardList[randX][randY], gameBoardList[x][y]
-  print gameBoardList
+  return gameBoardList
