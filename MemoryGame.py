@@ -39,7 +39,7 @@ def showCardAtCoord(cd, boardImage):
   y = cd.y
   image = images[board[y][x]] # gets one image from the cards/images list
   width = getWidth(image) #gets width of a single card
-  height = getHeight(image)#gets height of a single care
+  height = getHeight(image)#gets height of a single card
   for m in range(width):
     for n in range (height):
       pixel = getPixel(image, m,n)
@@ -48,16 +48,6 @@ def showCardAtCoord(cd, boardImage):
       setColor(newPixel, color)
   show(boardImage)
   return boardImage
-def showImageAtLocation(c, image,  ):
-  image = images[gameBoardList[x][y]] # gets one image from the cards/images list
-  width = getWidth(image) #gets width of a single card
-  height = getHeight(image)#gets height of a single care
-  for m in range(width):
-    for n in range (height):
-      pixel = getPixel(image, m,n)
-      color = getColor(pixel) 
-      newPixel = getPixel(gameBoard, (width*y)+(margins*(y+1))+m , (height*x)+(margins*(x+1))+n ) 
-      setColor(newPixel, color)
 
   
 def scalePercent(pic,percent):
