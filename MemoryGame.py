@@ -113,7 +113,7 @@ print("Resizing images in folder.")
 
 images = []
 for i in range(0,6): #Resize 6 base images from the folder, and append the resized version to images[]
-  ri = i# = random.randint(0,maxInt)
+  ri = randint(0,maxInt)
   resized = makePicture(imageFolder+"\\"+imagePaths[ri])
   imagePaths[ri] = imagePaths[maxInt]
   ratio = cardWidth/float(getWidth(resized)) #Percent required to match width
@@ -122,6 +122,7 @@ for i in range(0,6): #Resize 6 base images from the folder, and append the resiz
   #Rescale by the smaller ratio, to ensure the new image fits into the card area, even if it isn't square
   resized = scalePercent(resized,ratio*100)
   images.append(resized)
+  del imagePaths[ri]
   maxInt -= 1
 
 backImageFolder = os.path.dirname(os.path.abspath(__file__))+r"\MemoryGameBackImages"
