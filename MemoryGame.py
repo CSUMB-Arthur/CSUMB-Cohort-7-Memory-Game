@@ -113,7 +113,7 @@ print("Resizing images in folder.")
 
 images = []
 for i in range(0,6): #Resize 6 base images from the folder, and append the resized version to images[]
-  ri = randint(0,maxInt)
+  ri = randint(0,maxInt - 1)
   resized = makePicture(imageFolder+"\\"+imagePaths[ri])
   imagePaths[ri] = imagePaths[maxInt]
   ratio = cardWidth/float(getWidth(resized)) #Percent required to match width
